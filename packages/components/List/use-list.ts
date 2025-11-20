@@ -4,7 +4,7 @@ import type { ListProps, ListItemData } from './list-types';
 import { LazyLoadThreshold, InputTagNames, ArrowUp, ArrowDown, Enter } from './const';
 
 export function useList(props: ListProps, emits: (event: 'select' | 'loadMore', ...args: any[]) => void) {
-  let listenDom;
+  let listenDom: any;
   const preSelectIndex = ref(props.enableShortKey ? 0 : -1);
   const onItemClick = (item: ListItemData) => {
     if (item.disabled) {
@@ -49,7 +49,7 @@ export function useList(props: ListProps, emits: (event: 'select' | 'loadMore', 
   onMounted(() => {
 
     if (props.inputEl) {
-      const el = props.inputEl.$el ?? props.inputEl;
+      const el = (props.inputEl as any).$el ?? props.inputEl;
       if (InputTagNames.includes(el.tagName)) {
         listenDom = el;
       } else {

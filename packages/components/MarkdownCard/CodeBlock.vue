@@ -74,6 +74,7 @@
 <script setup lang="ts">
 import { ref, computed, type RendererElement, onMounted, nextTick, watch, type PropType } from 'vue';
 import hljs from "highlight.js";
+// @ts-ignore
 import { debounce } from "lodash-es";
 import { MDCardService } from "./MDCardService";
 import { useMcI18n } from "@matechat/core/Locale";

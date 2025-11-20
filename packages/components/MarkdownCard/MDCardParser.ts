@@ -1,17 +1,22 @@
-import type { Token } from 'markdown-it';
-import { VNode, h, isVNode } from 'vue';
+import type MarkdownIt from 'markdown-it';
+import { type VNode, h, isVNode } from 'vue';
+
+type MarkdownToken = ReturnType<MarkdownIt['parse']>[number] & {
+    vNodeKey?: string;
+    tokenIndex?: number;
+};
 
 export interface ASTNode {
     nodeType: string;
-    openNode: Token | null;
-    closeNode: Token | null;
-    children: (ASTNode | Token)[];
+    openNode: MarkdownToken | null;
+    closeNode: MarkdownToken | null;
+    children: (ASTNode | MarkdownToken)[];
     vNodeKey: string;
 }
 
 
 // 判断是否是结束标签
-const isClosingTag = (openToken: Token, closeToken: Token): boolean => {
+const isClosingTag = (openToken: MarkdownToken, closeToken: MarkdownToken): boolean => {
     const openContent = openToken?.content || '';
     const closeContent = closeToken?.content || '';
 
@@ -26,7 +31,7 @@ const isClosingTag = (openToken: Token, closeToken: Token): boolean => {
 }
 
 // 判断是否自闭合标签
-const isSelfClosingTag = (token: Token): boolean => {
+const isSelfClosingTag = (token: MarkdownToken): boolean => {
     // 判断token.content里面是否包含完整的HTML结构（所有开始标签都有对应的结束标签）
     const content = token.content || '';
 
@@ -92,7 +97,7 @@ const isSelfClosingTag = (token: Token): boolean => {
 }
 
 // 创建ast树节点
-const genTreeNode = (node: Token | null): ASTNode => {
+const genTreeNode = (node: MarkdownToken | null): ASTNode => {
     return {
         nodeType: node ? node.type.replace('_open', '') : 'root',
         openNode: node,
@@ -103,7 +108,7 @@ const genTreeNode = (node: Token | null): ASTNode => {
 };
 
 // 匹配成对html token
-const matchHtmlToken = (token: Token, stack: Token[]) => {
+const matchHtmlToken = (token: MarkdownToken, stack: MarkdownToken[]) => {
     // 简单排除单独的闭合标签
     const isCloseTag = token.content.startsWith('</');
     if (!stack.length) {
@@ -128,10 +133,10 @@ const matchHtmlToken = (token: Token, stack: Token[]) => {
 }
 
 // 将token转换为ast树
-export const tokensToAst = (tokens: Token[]): ASTNode[] => {
+export const tokensToAst = (tokens: MarkdownToken[]): ASTNode[] => {
 
     // 递归处理 inline 类型的 token
-    const processInlineToken = (token: Token): ASTNode => {
+    const processInlineToken = (token: MarkdownToken): ASTNode => {
         const node = genTreeNode(token);
 
         // 如果 token 有 children，递归处理它们
@@ -146,10 +151,10 @@ export const tokensToAst = (tokens: Token[]): ASTNode[] => {
     const rootNode = genTreeNode(null);
     let curr: ASTNode = rootNode;
     const stack: ASTNode[] = [];
-    const htmlInlineTokenStack: Token[] = [];
-    const htmlBlockTokenStack: Token[] = [];
+    const htmlInlineTokenStack: MarkdownToken[] = [];
+    const htmlBlockTokenStack: MarkdownToken[] = [];
     // 处理html token nesting值
-    tokens.forEach((tok: Token, idx: number) => {
+    tokens.forEach((tok: MarkdownToken, idx: number) => {
 
         tok.vNodeKey = `mc-markdown-content-key-${idx}`;
         tok.tokenIndex = idx;
@@ -167,7 +172,7 @@ export const tokensToAst = (tokens: Token[]): ASTNode[] => {
         }
     })
 
-    tokens.forEach((tok: Token, idx: number) => {
+    tokens.forEach((tok: MarkdownToken, idx: number) => {
         let tmp: ASTNode;
         if (tok.nesting === 1) {
             // 开始标签

@@ -1,5 +1,6 @@
 import { onMounted, ref, reactive, watch, nextTick, onBeforeUnmount } from 'vue';
 import { computePosition, offset } from '@floating-ui/dom';
+// @ts-ignore
 import { debounce, isObject } from 'lodash-es';
 import type { MentionProps } from './mention-types';
 import { MentionSeparator, ArrowLeft, ArrowRight, Escape } from './const';
@@ -168,8 +169,8 @@ export function useMention(props: MentionProps, emits: (event: string, ...args: 
       inputEl = originEl.value.querySelector('textarea') || originEl.value.querySelector('input');
 
       if (inputEl) {
-        inputEl.addEventListener('input', onInput);
-        inputEl.addEventListener('keydown', onKeyDown);
+        inputEl.addEventListener('input', onInput as EventListener);
+        inputEl.addEventListener('keydown', onKeyDown as EventListener);
       }
     }
     document.addEventListener('click', onDocumentClick);
@@ -183,8 +184,8 @@ export function useMention(props: MentionProps, emits: (event: string, ...args: 
 
   onBeforeUnmount(() => {
     emitModelValue(false);
-    inputEl?.removeEventListener('input', onInput);
-    inputEl?.removeEventListener('keydown', onKeyDown);
+    inputEl?.removeEventListener('input', onInput as EventListener);
+    inputEl?.removeEventListener('keydown', onKeyDown as EventListener);
     document.removeEventListener('click', onDocumentClick);
     typeof window !== 'undefined' && window.removeEventListener('scroll', scrollCallback, true);
     unobserveOrigin();

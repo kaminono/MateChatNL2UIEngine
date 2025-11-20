@@ -54,7 +54,7 @@ export function get(path: string, params: any, messages: LocaleMessages) {
     return value(params);
   }
 
-  return value.replace(/{(\w+)}/g, (_, placeholder: string) => {
+  return value.replace(/{(\w+)}/g, (_: string, placeholder: string) => {
     return params[placeholder] ?? `{${placeholder}}`;
   });
 }

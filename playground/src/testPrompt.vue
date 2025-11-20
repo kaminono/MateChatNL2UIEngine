@@ -5,7 +5,7 @@
     :color="prompts.color"
     :icon="prompts.icon"
     :list="prompts.list"
-    :direction="'horizontal'"
+    :direction="ListDirection.Horizontal"
     @itemClick="onItemClick($event)"
   ></Prompt>
   <Prompt
@@ -14,7 +14,7 @@
     :color="prompts.color"
     :icon="prompts.icon"
     :list="prompts.list"
-    :direction="'vertical'"
+    :direction="ListDirection.Vertical"
     @itemClick="onItemClick($event)"
   ></Prompt>
   <Prompt
@@ -23,22 +23,23 @@
     :color="promptsSub.color"
     :icon="promptsSub.icon"
     :list="promptsSub.list"
-    :direction="'horizontal'"
+    :direction="ListDirection.Horizontal"
     @itemClick="onItemClick($event)"
   ></Prompt>
-  <Prompt class="p10" :list="listText" :direction="'horizontal'" @itemClick="onItemClick($event)"></Prompt>
-  <Prompt class="p10" :list="listIcon" :direction="'horizontal'" @itemClick="onItemClick($event)"></Prompt>
-  <Prompt class="p10" :list="listDesc" :direction="'horizontal'" @itemClick="onItemClick($event)"></Prompt>
+  <Prompt class="p10" :list="listText" :direction="ListDirection.Horizontal" @itemClick="onItemClick($event)"></Prompt>
+  <Prompt class="p10" :list="listIcon" :direction="ListDirection.Horizontal" @itemClick="onItemClick($event)"></Prompt>
+  <Prompt class="p10" :list="listDesc" :direction="ListDirection.Horizontal" @itemClick="onItemClick($event)"></Prompt>
 </template>
 
 <script setup lang="ts">
 import Prompt from '@matechat/core/Prompt/Prompt.vue';
+import { ListDirection } from '@matechat/core/List';
 
 const prompts = {
   title: 'Inspirational Sparks and Marvelous Tips',
   icon: 'like',
   color: 'rgb(24, 144, 255)',
-  direction: 'horizontal',
+  direction: ListDirection.Horizontal,
   list: [
     {
       value: '1',
@@ -61,7 +62,7 @@ const promptsSub = {
   title: 'Inspirational Sparks and Marvelous Tips',
   icon: 'like',
   color: 'rgb(24, 144, 255)',
-  direction: 'horizontal',
+  direction: ListDirection.Horizontal,
   list: [
     {
       value: '1',
@@ -124,11 +125,13 @@ const listText = [
 const listIcon = [
   {
     value: '1',
+    label: 'Icon 1',
     icon: 'icon-info-o',
     color: 'rgb(255, 215, 0)',
   },
   {
     value: '2',
+    label: 'Icon 2',
     icon: 'icon-star',
     color: 'rgb(255, 215, 0)',
   },
@@ -137,15 +140,17 @@ const listIcon = [
 const listDesc = [
   {
     value: '1',
+    label: 'Desc 1',
     desc: 'icon-info-o',
   },
   {
     value: '2',
+    label: 'Desc 2',
     desc: 'icon-star',
   },
 ];
 
-function onItemClick(item) {
+function onItemClick(item: any) {
   console.log(item);
 }
 </script>

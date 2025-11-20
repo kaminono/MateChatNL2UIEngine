@@ -3,7 +3,6 @@ const props = withDefaults(
   defineProps<{
     size?: number | string;
     title?: string;
-    class?: string;
   }>(),
   {
     size: 16,
@@ -17,7 +16,6 @@ const props = withDefaults(
     :width="size"
     :height="size"
     viewBox="0 0 14 14"
-    :class="class"
     role="img"
     :aria-hidden="!title"
     fill="none"

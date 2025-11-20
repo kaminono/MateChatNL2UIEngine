@@ -27,15 +27,15 @@ let triggerIndex: number;
 let cursorIndex: number;
 let currentTrigger: string;
 
-const onSearchChange = (e) => {
+const onSearchChange = (e: any) => {
   triggerIndex = e.triggerIndex;
   cursorIndex = e.cursorIndex;
   currentTrigger = e.trigger;
 };
-const onListSelect = (e) => {
+const onListSelect = (e: any) => {
   inputValue.value = inputValue.value.slice(0, triggerIndex) + currentTrigger + e.label + inputValue.value.slice(cursorIndex);
 };
-const onInputChange = (e) => {
+const onInputChange = (e: any) => {
   inputValue.value = e;
 };
 </script>

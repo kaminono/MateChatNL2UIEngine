@@ -7,6 +7,7 @@
     "nightwatch.conf.*",
     "playwright.config.*"
   ],
+  "exclude": ["packages/create-matechat/templates/**/*"],
   "compilerOptions": {
     "composite": true,
     "noEmit": true,
