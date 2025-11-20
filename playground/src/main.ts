@@ -7,7 +7,7 @@ import DevUI from 'vue-devui';
 import 'vue-devui/style.css';
 import '@devui-design/icons/icomoon/devui-icon.css';
 import App from './App.vue';
-import MateChat from '@matechat/core';
+import MateChat from '../../packages/components';
 
 const app = createApp(App)
 app.use(DevUI)

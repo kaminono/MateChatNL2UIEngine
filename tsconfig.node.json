@@ -1,13 +1,14 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
   "include": [
-    "**/vite.config.*",
+    "playground/vite.config.*",
+    "packages/components/vite.config.*",
+    "docs/vite.config.*",
     "vitest.config.*",
     "cypress.config.*",
     "nightwatch.conf.*",
     "playwright.config.*"
   ],
-  "exclude": ["packages/create-matechat/templates/**/*"],
   "compilerOptions": {
     "composite": true,
     "noEmit": true,
@@ -15,6 +16,7 @@
 
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"]
+    "types": ["node"],
+    "skipLibCheck": true
   }
 }

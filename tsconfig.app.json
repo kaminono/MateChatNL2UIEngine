@@ -4,20 +4,24 @@
     "**/env.d.ts",
     "playground/**/*",
     "playground/**/*.vue",
-    "packages/**/*.vue",
-    "packages/**/*.ts",
-    "packages/**/*.tsx",
-    "types/**/*.d.ts"
+    "packages/components/**/*.vue",
+    "packages/components/**/*.ts",
+    "packages/components/**/*.tsx"
   ],
-  "exclude": ["src/**/__tests__/*", "packages/create-matechat/templates/**/*", "packages/components-ng/**/*"],
+  "exclude": [
+    "src/**/__tests__/*",
+    "packages/create-matechat/templates/**/*",
+    "packages/create-matechat/src/**/*",
+    "packages/components-ng/**/*"
+  ],
   "compilerOptions": {
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "baseUrl": ".",
     "paths": {
       "@matechat/playground/*": ["./playground/*"],
-      "@matechat/core/*": ["./packages/components/*"],
-      "@matechat/core": ["./packages/components/index.ts"]
-    }
+      "@matechat/core/*": ["./packages/components/*"]
+    },
+    "skipLibCheck": true
   }
 }

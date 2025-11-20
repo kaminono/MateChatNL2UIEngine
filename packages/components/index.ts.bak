@@ -1,4 +1,3 @@
-import type { App } from 'vue';
 import { McAttachment } from './Attachment';
 import { McBubble } from './Bubble';
 import { McFileList } from './FileList';
@@ -48,7 +47,7 @@ export {
 };
 
 export default {
-  install(app: App) {
-    installs.forEach((p) => app.use(p as any));
+  install(app) {
+    installs.forEach((p) => app.use(p));
   }
 };

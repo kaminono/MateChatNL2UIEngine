@@ -48,7 +48,7 @@ export {
 };
 
 export default {
-  install(app: App) {
-    installs.forEach((p) => app.use(p as any));
+  install(app) {
+    installs.forEach((p) => app.use(p));
   }
 };

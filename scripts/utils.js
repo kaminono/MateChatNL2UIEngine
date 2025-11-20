@@ -56,6 +56,7 @@ export function createIndexTemplate(exportModules) {
   });
 
   const template = `\
+import type { App } from 'vue';
 ${imports.join('\n')}
 
 const installs = [
@@ -67,8 +68,8 @@ export {
 };
 
 export default {
-  install(app) {
-    installs.forEach((p) => app.use(p));
+  install(app: App) {
+    installs.forEach((p) => app.use(p as any));
   }
 };
 `;
